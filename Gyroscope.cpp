@@ -62,7 +62,7 @@ int gyroscope_ICG_1020S::_getXValue(){
 }
 
 int gyroscope_ICG_1020S::_getYValue(){
-  int yH = (_readRegister(0x44) << 8);
+  int yH = (_readRegister(0x45) << 8);
   int yL = _readRegister(0x46);
   int y = yH | yL;
   if (y / (*this)._scaleGyroscope > (*this)._scaleRange) return y / (*this)._scaleGyroscope - (2 * (*this)._scaleRange);
@@ -79,8 +79,8 @@ double gyroscope_ICG_1020S::getTemperature(){
 String gyroscope_ICG_1020S::getTilt(){
   int x = _getXValue();
   int y = _getYValue();
-  if (y > 20) return "Right";
-  else if (y < -20) return "Left";
+  if (y > 2) return "Right";
+  else if (y < -2) return "Left";
   else if (x > 3) return "Backwards";
   else if (x < -3) return "Forwards";
   else return "No movement";
